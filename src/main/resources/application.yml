@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: resilience4j
+  cloud:
+    circuitbreaker:
+      resilience4j:
+        enabled: true
+
+server:
+  port: 8080
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: FULL
+  circuitbreaker:
+    enabled: true
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        record-failure-predicate: com.hannah.resilience4j.support.circuit.DefaultExceptionRecordFailurePredicate
+        automaticTransitionFromOpenToHalfOpenEnabled: true # OPEN에서 HALF OPEN으로 자동 변환 여부
+        waitDurationInOpenState: 30s
+        slidingWindowSize: 3 # 슬라이딩 윈도우의 크기
+        failureRateThreshold: 50
+        slidingWindowType: COUNT_BASED # 슬라이딩 윈도우의 타입 설정
+        slowCallRateThreshold: 80 # 기본값 100 보다 조금 작게 설정
+        slowCallDurationThreshold: 5s # TimeLimiter의 timeoutDuration보다 작아야 함
+    instances:
+      default:
+        baseConfig: default
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 6s # slowCallDurationThreshold보다 커야함
+        cancelRunningFuture: true
+
+
+# circuit breaker 상태 확인을 위한 actuator 설정 추가
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoints:
+    enabled-by-default: false
+#    jmx:
+#      exposure:
+#        exclude: "*"
+    web:
+      exposure:
+        include: prometheus,info,health
+  endpoint:
+    prometheus:
+      enabled: true
+    info:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
