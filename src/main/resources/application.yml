@@ -24,7 +24,7 @@ resilience4j:
     configs:
       default:
         registerHealthIndicator: true
-        record-failure-predicate: com.hannah.resilience4j.support.circuit.DefaultExceptionRecordFailurePredicate
+#        record-failure-predicate: com.hannah.resilience4j.support.circuit.DefaultExceptionRecordFailurePredicate
         automaticTransitionFromOpenToHalfOpenEnabled: true # OPEN에서 HALF OPEN으로 자동 변환 여부
         waitDurationInOpenState: 30s
         slidingWindowSize: 3 # 슬라이딩 윈도우의 크기
