@@ -35,12 +35,28 @@ resilience4j:
     instances:
       default:
         baseConfig: default
+      openai:
+        base-config: default
+      gemini:
+        base-config: default
   timelimiter:
     configs:
       default:
         timeoutDuration: 6s # slowCallDurationThreshold보다 커야함
         cancelRunningFuture: true
+    instances:
+      default:
+        baseConfig: default
+      openai:
+        base-config: default
+      gemini:
+        base-config: default
 
+llm:
+  gpt:
+    api-key: sk-xxx
+  gemini:
+    api-key: AI-xxx
 
 # circuit breaker 상태 확인을 위한 actuator 설정 추가
 management:
