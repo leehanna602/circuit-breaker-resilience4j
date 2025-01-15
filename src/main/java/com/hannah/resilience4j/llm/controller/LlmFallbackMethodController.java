@@ -1,6 +1,5 @@
 package com.hannah.resilience4j.llm.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.hannah.resilience4j.llm.controller.dto.request.LlmConversationReq;
 import com.hannah.resilience4j.llm.controller.dto.response.LlmConversationRes;
 import com.hannah.resilience4j.llm.service.LlmService;

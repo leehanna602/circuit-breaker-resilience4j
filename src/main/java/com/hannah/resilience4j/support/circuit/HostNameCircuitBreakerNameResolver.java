@@ -19,7 +19,7 @@ public class HostNameCircuitBreakerNameResolver implements CircuitBreakerNameRes
         try {
             return new URL(url).getHost();
         } catch (MalformedURLException e) {
-            log.error("MalformedURLException is occured: {}", url);
+            log.error("MalformedURLException is occurred: {}", url);
             return "default";
         }
     }

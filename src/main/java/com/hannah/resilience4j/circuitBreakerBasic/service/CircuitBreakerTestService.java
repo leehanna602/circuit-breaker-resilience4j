@@ -23,8 +23,8 @@ public class CircuitBreakerTestService {
         return "Success";
     }
 
-    public Object circuitBreakerExceptionFallback(Exception e) {
-        log.info("=====> circuitBreakerExceptionFallback");
+    public Object circuitBreakerExceptionFallback(int number, Exception e) {
+        log.info("=====> circuitBreakerExceptionFallback: {}",  number);
         return "circuitBreakerExceptionFallback";
     }
 
@@ -42,7 +42,7 @@ public class CircuitBreakerTestService {
         });
     }
 
-    public CompletableFuture<String> circuitBreakerTimeoutFallback(Exception e) {
+    public CompletableFuture<Object> circuitBreakerTimeoutFallback(Exception e) {
         log.info("=====> circuitBreakerTimeoutFallback");
         return CompletableFuture.completedFuture("circuitBreakerTimeoutFallback");
     }
